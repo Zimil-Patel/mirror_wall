@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -17,6 +16,13 @@ class OnlineContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    PullToRefreshController pullToRefreshController = PullToRefreshController(
+      onRefresh: () {
+        providerTrue.webController.reload();
+      },
+    );
+
     return Stack(
       children: [
         // IN APP WEB VIEW
@@ -38,8 +44,12 @@ class OnlineContent extends StatelessWidget {
 
           // ON LOAD STOP
           onLoadStop: (controller, url) {
+            pullToRefreshController.endRefreshing();
             providerFalse.updateState();
           },
+
+          pullToRefreshController: pullToRefreshController,
+
         ),
 
         // WEBSITE LOADING PROGRESS INDICATOR
