@@ -1,10 +1,17 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mirror_wall/screens/view/components/search_engine_dialog.dart';
+import 'package:provider/provider.dart';
+
+import '../../provider/home_provider.dart';
+import 'bookmark_history_dialog.dart';
 
 class IconWithLable extends StatelessWidget {
   const IconWithLable({
-    super.key, required this.icon, required this.lable,
+    super.key,
+    required this.icon,
+    required this.lable,
   });
 
   final IconData icon;
@@ -13,13 +20,22 @@ class IconWithLable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HomeProvider homeProviderTrue = Provider.of<HomeProvider>(context, listen: true);
+    HomeProvider homeProviderFalse = Provider.of<HomeProvider>(context, listen: false);
     return CupertinoButton(
       onPressed: () {
-        if (lable == 'Change Search\nEngine'){
+        if (lable == 'Change Search\nEngine') {
+          Navigator.pop(context);
           showDialog(
             context: context,
             barrierDismissible: false,
             builder: (context) => const CustomDialog(),
+          );
+        } else {
+          Navigator.pop(context);
+          showCupertinoModalPopup(
+            context: context,
+            builder: (context) => BookmarkHistoryListDialog(lable: lable, homeProviderTrue: homeProviderTrue, homeProviderFalse: homeProviderFalse),
           );
         }
       },
@@ -62,3 +78,5 @@ class IconWithLable extends StatelessWidget {
     );
   }
 }
+
+

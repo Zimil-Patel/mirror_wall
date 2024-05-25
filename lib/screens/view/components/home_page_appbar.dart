@@ -53,7 +53,7 @@ class HomePageAppBar extends StatelessWidget {
           ),
 
           // STAR, DOWNLOAD
-          AppBarActionButtons(providerFalse: providerFalse),
+          AppBarActionButtons(providerFalse: providerFalse, providerTrue: providerTrue,),
         ],
       ),
 

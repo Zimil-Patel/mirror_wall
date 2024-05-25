@@ -12,7 +12,7 @@ class CustomDialog extends StatelessWidget {
   Widget build(BuildContext context) {
 
     HomeProvider providerFalse = Provider.of<HomeProvider>(context, listen: false);
-    // HomeProvider providerTrue = Provider.of<HomeProvider>(context, listen: true);
+    HomeProvider providerTrue = Provider.of<HomeProvider>(context, listen: true);
 
     return Dialog(
       child: Container(
@@ -48,6 +48,7 @@ class CustomDialog extends StatelessWidget {
                     value: 'google',
                     groupValue: providerFalse.selectedEngine,
                     onChanged: (value) {
+                      Navigator.pop(context);
                       providerFalse.setSearchEngine(
                           context: context, value: value!);
                     },
@@ -57,6 +58,7 @@ class CustomDialog extends StatelessWidget {
                     value: 'yahoo',
                     groupValue: providerFalse.selectedEngine,
                     onChanged: (value) {
+                      Navigator.pop(context);
                       providerFalse.setSearchEngine(
                           context: context, value: value!);
                     },
@@ -66,6 +68,8 @@ class CustomDialog extends StatelessWidget {
                     value: 'bing',
                     groupValue: providerFalse.selectedEngine,
                     onChanged: (value) {
+                      Navigator.pop(context);
+
                       providerFalse.setSearchEngine(
                           context: context, value: value!);
                     },
@@ -75,6 +79,8 @@ class CustomDialog extends StatelessWidget {
                     value: 'duckduckgo',
                     groupValue: providerFalse.selectedEngine,
                     onChanged: (value) {
+                      Navigator.pop(context);
+
                       providerFalse.setSearchEngine(
                           context: context, value: value!);
                     },
@@ -94,7 +100,6 @@ class CustomDialog extends StatelessWidget {
                   const Spacer(),
                   TextButton(
                     onPressed: () {
-                      providerFalse.rebuildWeb();
                       Navigator.pop(context);
                     },
                     child: const Text('Ok',

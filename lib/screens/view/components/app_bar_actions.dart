@@ -7,10 +7,10 @@ import '../../../utils/constants.dart';
 class AppBarActionButtons extends StatelessWidget {
   const AppBarActionButtons({
     super.key,
-    required this.providerFalse,
+    required this.providerFalse, required this.providerTrue,
   });
 
-  final HomeProvider providerFalse;
+  final HomeProvider providerFalse, providerTrue;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class AppBarActionButtons extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6.0),
           child: IconButton(
-            onPressed: null,
+            onPressed: providerTrue.isContainsInBookmark ? null : () => providerFalse.addToBookMarks(),
             icon: Icon(
               Icons.bookmark_add_outlined,
               size: height * 0.034,

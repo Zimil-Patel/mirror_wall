@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-
 import '../../provider/home_provider.dart';
 
 class WebViewContainer extends StatefulWidget {
@@ -46,6 +45,7 @@ class WebViewContainerState extends State<WebViewContainer> {
   }
 }
 
+
 class OnlineContent extends StatelessWidget {
   const OnlineContent({
     super.key,
@@ -78,10 +78,17 @@ class OnlineContent extends StatelessWidget {
               providerFalse.updateProgressValue(progress),
           // ON LOAD STOP
           onLoadStop: (controller, url) {
-            pullToRefreshController.endRefreshing();
             providerFalse.updateState();
           },
-          pullToRefreshController: pullToRefreshController,
+          // URL LOADING OVERRIDE
+          shouldOverrideUrlLoading: (controller, navigationAction) async {
+            final uri = navigationAction.request.url;
+            if (uri != null && uri.toString() != 'https://www.${providerTrue.selectedEngine}.com/') {
+              providerFalse.currentUrl = uri.toString();
+            }
+            return NavigationActionPolicy.ALLOW;
+          },
+          pullToRefreshController: pullToRefreshController, // Add the PullToRefreshController here
         ),
         // WEBSITE LOADING PROGRESS INDICATOR
         if (providerTrue.progressValue < 1)

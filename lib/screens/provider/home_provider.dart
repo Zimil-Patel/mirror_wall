@@ -1,8 +1,6 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-
 import '../model/browser_model.dart';
 
 class HomeProvider extends ChangeNotifier {
@@ -18,8 +16,9 @@ class HomeProvider extends ChangeNotifier {
   bool canGoForward = false;
   List<BrowserModel> bookMarkList = [];
   List<BrowserModel> historyList = [];
+  bool isContainsInBookmark = false;
 
-  void rebuildWeb(){
+  void rebuildWeb() {
     searchValue = '';
     txtSearch = TextEditingController();
     webKey = UniqueKey();
@@ -33,15 +32,28 @@ class HomeProvider extends ChangeNotifier {
   }
 
   // SEARCH
-  void search([String? value]) {
-    searchValue = value ?? '';
-    webController.loadUrl(
-      urlRequest: URLRequest(
-        url: WebUri(
-          searchValue != '' ? selectedEngine == 'duckduckgo' ? 'https://duckduckgo.com/?va=c&t=ha&q=$searchValue&ia=web' :'https://www.$selectedEngine.com/search?q=$searchValue' : 'https://www.$selectedEngine.com/',
+  void search(String value) {
+    if (value.isNotEmpty && value != searchValue) {
+      searchValue = value;
+      webController.loadUrl(
+        urlRequest: URLRequest(
+          url: WebUri('https://www.$selectedEngine.com/search?q=$searchValue'),
         ),
-      ),
-    );
+      );
+      notifyListeners();
+    }
+  }
+
+  void addToHistory() {
+    log('Added to history');
+    if (currentUrl != 'https://www.$selectedEngine.com/') {
+      historyList.add(BrowserModel(title: currentTitle, url: currentUrl, time: DateTime.now()));
+    }
+  }
+
+  void addToBookMarks() {
+    bookMarkList.add(BrowserModel(title: currentTitle, url: currentUrl, time: DateTime.now()));
+    isContainsInBookmark = checkIfExistInBookMark();
     notifyListeners();
   }
 
@@ -49,21 +61,19 @@ class HomeProvider extends ChangeNotifier {
     log('Called Fetch Data..............................');
     WebUri? webUri = await webController.getUrl();
     if (webUri != null) {
-      currentUrl = webUri.toString(); // or webUri.url if there's such a method/property
+      currentUrl = webUri.toString();
     } else {
       log('URL is null');
     }
     currentTitle = await webController.getTitle() as String;
     log('Url: $currentUrl\n Title: $currentTitle');
-
-    if (currentUrl != 'https://www.$selectedEngine.com/'){
-      historyList.add(BrowserModel(title: currentTitle, url: currentUrl));
-      log('$historyList');
-    }
+    isContainsInBookmark = checkIfExistInBookMark();
+    addToHistory();
   }
 
   setSearchEngine({required BuildContext context, required String value}) {
     selectedEngine = value;
+    rebuildWeb();
     log(selectedEngine);
     notifyListeners();
   }
@@ -75,19 +85,41 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void goBack(){
+  void goBack() {
     webController.goBack();
   }
 
-  void goForward(){
+  void goForward() {
     webController.goForward();
   }
 
-  void reload(){
+  void reload() {
     webController.reload();
   }
 
-  void goHome(){
+  void goHome() {
+    txtSearch.clear();
     rebuildWeb();
+  }
+
+  bool checkIfExistInBookMark() {
+    log('Called Check if exists');
+    for (int i = 0; i < bookMarkList.length; i++) {
+      if (currentUrl == bookMarkList[i].url) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void loadHistoryOrBookmark(String url) {
+    webController.loadUrl(
+      urlRequest: URLRequest(
+        url: WebUri(url),
+      ),
+    );
+    webController.clearHistory();
+    updateState();
+    notifyListeners();
   }
 }
