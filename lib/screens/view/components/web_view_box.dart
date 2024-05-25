@@ -22,13 +22,16 @@ class WebViewBox extends StatelessWidget {
       child: StreamBuilder(
         stream: Connectivity().onConnectivityChanged,
         builder: (context, snapshot) {
-          if (snapshot.data!.contains(ConnectivityResult.mobile) || snapshot.data!.contains(ConnectivityResult.wifi)) {
-            return OnlineContent(providerTrue: providerTrue, providerFalse: providerFalse);
+          if (snapshot.hasData) {
+            if (snapshot.data!.contains(ConnectivityResult.mobile) || snapshot.data!.contains(ConnectivityResult.wifi)) {
+              return WebViewContainer(providerTrue: providerTrue, providerFalse: providerFalse);
+            } else {
+              return const OfflineContent();
+            }
           } else {
             return const OfflineContent();
           }
-        }
-
+        },
       ),
     );
   }

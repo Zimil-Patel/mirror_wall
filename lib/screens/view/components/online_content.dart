@@ -1,28 +1,65 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import '../../provider/home_provider.dart';
+
+class WebViewContainer extends StatefulWidget {
+  final HomeProvider providerTrue;
+  final HomeProvider providerFalse;
+
+  const WebViewContainer({
+    super.key,
+    required this.providerTrue,
+    required this.providerFalse,
+  });
+
+  @override
+  WebViewContainerState createState() => WebViewContainerState();
+}
+
+class WebViewContainerState extends State<WebViewContainer> {
+  late PullToRefreshController pullToRefreshController;
+
+  @override
+  void initState() {
+    super.initState();
+    pullToRefreshController = PullToRefreshController(
+      onRefresh: () {
+        widget.providerTrue.webController.reload();
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    pullToRefreshController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return OnlineContent(
+      providerTrue: widget.providerTrue,
+      providerFalse: widget.providerFalse,
+      pullToRefreshController: pullToRefreshController,
+    );
+  }
+}
 
 class OnlineContent extends StatelessWidget {
   const OnlineContent({
     super.key,
     required this.providerTrue,
     required this.providerFalse,
+    required this.pullToRefreshController,
   });
 
   final HomeProvider providerTrue;
   final HomeProvider providerFalse;
+  final PullToRefreshController pullToRefreshController;
 
   @override
   Widget build(BuildContext context) {
-
-    PullToRefreshController pullToRefreshController = PullToRefreshController(
-      onRefresh: () {
-        providerTrue.webController.reload();
-      },
-    );
-
     return Stack(
       children: [
         // IN APP WEB VIEW
@@ -32,26 +69,20 @@ class OnlineContent extends StatelessWidget {
           initialUrlRequest: URLRequest(
             url: WebUri('https://www.${providerTrue.selectedEngine}.com/'),
           ),
-
           // ON CREATED
           onWebViewCreated: (controller) {
             providerTrue.webController = controller;
           },
-
           // PROGRESS TRACK
           onProgressChanged: (controller, progress) =>
               providerFalse.updateProgressValue(progress),
-
           // ON LOAD STOP
           onLoadStop: (controller, url) {
             pullToRefreshController.endRefreshing();
             providerFalse.updateState();
           },
-
           pullToRefreshController: pullToRefreshController,
-
         ),
-
         // WEBSITE LOADING PROGRESS INDICATOR
         if (providerTrue.progressValue < 1)
           Align(

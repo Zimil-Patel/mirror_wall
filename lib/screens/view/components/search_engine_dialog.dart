@@ -12,12 +12,12 @@ class CustomDialog extends StatelessWidget {
   Widget build(BuildContext context) {
 
     HomeProvider providerFalse = Provider.of<HomeProvider>(context, listen: false);
-    HomeProvider providerTrue = Provider.of<HomeProvider>(context, listen: true);
+    // HomeProvider providerTrue = Provider.of<HomeProvider>(context, listen: true);
 
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color(0xffecf5ff),
           borderRadius: BorderRadius.circular(30),
         ),
         child: Column(

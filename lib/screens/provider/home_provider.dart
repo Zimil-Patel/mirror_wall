@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
+import '../model/browser_model.dart';
+
 class HomeProvider extends ChangeNotifier {
   TextEditingController txtSearch = TextEditingController();
   late InAppWebViewController webController;
@@ -14,6 +16,8 @@ class HomeProvider extends ChangeNotifier {
   Key webKey = UniqueKey();
   bool canGoBack = false;
   bool canGoForward = false;
+  List<BrowserModel> bookMarkList = [];
+  List<BrowserModel> historyList = [];
 
   void rebuildWeb(){
     searchValue = '';
@@ -51,6 +55,11 @@ class HomeProvider extends ChangeNotifier {
     }
     currentTitle = await webController.getTitle() as String;
     log('Url: $currentUrl\n Title: $currentTitle');
+
+    if (currentUrl != 'https://www.$selectedEngine.com/'){
+      historyList.add(BrowserModel(title: currentTitle, url: currentUrl));
+      log('$historyList');
+    }
   }
 
   setSearchEngine({required BuildContext context, required String value}) {
