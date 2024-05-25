@@ -79,6 +79,7 @@ class OnlineContent extends StatelessWidget {
           // ON LOAD STOP
           onLoadStop: (controller, url) {
             providerFalse.updateState();
+            pullToRefreshController.endRefreshing();
           },
           // URL LOADING OVERRIDE
           shouldOverrideUrlLoading: (controller, navigationAction) async {
