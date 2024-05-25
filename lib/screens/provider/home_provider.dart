@@ -9,6 +9,8 @@ class HomeProvider extends ChangeNotifier {
   String searchValue = '';
   double progressValue = 1;
   String selectedEngine = 'google';
+  String currentUrl = '';
+  String currentTitle = '';
   Key webKey = UniqueKey();
   bool canGoBack = false;
   bool canGoForward = false;
@@ -39,6 +41,18 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void fetchWebData() async {
+    log('Called Fetch Data..............................');
+    WebUri? webUri = await webController.getUrl();
+    if (webUri != null) {
+      currentUrl = webUri.toString(); // or webUri.url if there's such a method/property
+    } else {
+      log('URL is null');
+    }
+    currentTitle = await webController.getTitle() as String;
+    log('Url: $currentUrl\n Title: $currentTitle');
+  }
+
   setSearchEngine({required BuildContext context, required String value}) {
     selectedEngine = value;
     log(selectedEngine);
@@ -48,6 +62,7 @@ class HomeProvider extends ChangeNotifier {
   void updateState() async {
     canGoBack = await webController.canGoBack();
     canGoForward = await webController.canGoForward();
+    fetchWebData();
     notifyListeners();
   }
 
