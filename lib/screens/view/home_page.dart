@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
     HomeProvider homeProviderFalse = Provider.of<HomeProvider>(context, listen: false);
 
     return Scaffold(
-
+      backgroundColor: Colors.white,
       // APP BAR
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70),

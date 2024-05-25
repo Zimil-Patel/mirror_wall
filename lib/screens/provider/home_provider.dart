@@ -37,7 +37,7 @@ class HomeProvider extends ChangeNotifier {
       searchValue = value;
       webController.loadUrl(
         urlRequest: URLRequest(
-          url: WebUri('https://www.$selectedEngine.com/search?q=$searchValue'),
+          url: WebUri(selectedEngine == 'duckduckgo' ? 'https://duckduckgo.com/?va=c&t=hq&q=$searchValue' : 'https://www.$selectedEngine.com/search?q=$searchValue'),
         ),
       );
       notifyListeners();
@@ -113,13 +113,12 @@ class HomeProvider extends ChangeNotifier {
   }
 
   void loadHistoryOrBookmark(String url) {
+
     webController.loadUrl(
       urlRequest: URLRequest(
         url: WebUri(url),
       ),
     );
-    webController.clearHistory();
     updateState();
-    notifyListeners();
   }
 }
