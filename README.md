@@ -1,51 +1,47 @@
 # Mirror Wall (Browser App)
 
 ## Introduction
+Welcome to the Mirror Wall Browser App! This project is a mobile browser application designed to provide a seamless internet browsing experience directly within the app. Developed using the Flutter framework and WebView technology, this app aims to enhance the skills of IT students in mobile app development.
 
-Welcome to the Flutter Contact Manager App! This project is a comprehensive application designed to manage contacts with various functionalities such as adding, editing, and deleting contacts. The app also supports both Material Design and Cupertino (Human Interface) styles, providing a seamless user experience on both Android and iOS platforms.
+## Features
+- **Web Browsing**: Browse the internet within the app using a WebView widget to display web content.
+- **Bookmarks**: Save and manage your favorite websites.
+- **Pull-to-Refresh**: Refresh web pages with a simple pull-down gesture.
+- **Navigation Controls**: Use backward, forward, and home buttons for easy navigation.
+- **Performance Optimization**: Optimized for smooth performance and user experience.
 
-### Features
-
-- **Profile Management**: Users can manage their profiles within the app.
-- **Add Contact**: Add contacts with image and date/time pickers.
-- **App Switching**: Switch between Material Design and Cupertino styles.
-- **Call Functionality**: Directly call contacts from the app.
-- **Edit & Delete Contact**: Edit and delete contacts.
-- **Persistent Theme Save**: Save theme preference using local storage.
-
-### Technologies Used
-
+## Technologies Used
 - **Language**: Dart
 - **Framework**: Flutter
 - **Architecture**: MVC (Model-View-Controller) and Provider
-- **Local Storage**: `shared_preferences` package
+- **WebView**: flutter_inappwebview package for web content display
 
-### Packages Used
+## Packages Used
+- **cupertino_icons**: ^1.0.6
+- **connectivity_plus**: ^6.0.3
+- **provider**: ^6.1.2
+- **flutter_inappwebview**: ^6.0.0
 
-- `provider`: State management
-- `image_picker`: Pick images from gallery or camera
-- `shared_preferences`: Persistent storage for saving theme preferences
-- `url_launcher`: Launch phone dialer for call functionality
+## Project Requirements
+- **Knowledge** of Dart programming language.
+- **Familiarity** with the Flutter framework and WebView technology.
+- **Understanding** of user interface design principles and best practices.
+- **Experience** with mobile app development tools such as Android Studio or VS Code.
+- **Ability** to work independently.
 
+## Usage
+- **Web Browsing**: Open the app to start browsing the internet directly within the app.
+- **Bookmarks**: Use the bookmark feature to save your favorite websites for quick access.
+- **Refresh**: Pull down on the web page to refresh the content.
+- **Navigation**: Utilize the backward, forward, and home buttons for efficient navigation.
 
-### Usage
+## Project Deliverables
+- **Functional Application**: A fully functional mobile browser application developed using Flutter and WebView.
+- **Source Code and Documentation**: Complete source code along with comprehensive documentation.
+- **Project Report**: A detailed report covering the development process, challenges faced, and solutions implemented.
+- **Presentation and Demonstration**: A presentation and live demonstration of the application to a panel of reviewers.
 
-1. **Profile Management**: Navigate to the Profile section to manage your profile information.
-2. **Add Contact**: Use the Add Contact button to add a new contact, with options to pick an image and set a date/time.
-3. **Switch Themes**: Use the settings to switch between Material and Cupertino themes.
-4. **Call Contact**: Click the call button on a contact to directly call them.
-5. **Edit/Delete Contact**: Edit or delete contacts using the respective options in the contact list.
-
-
-### Evaluation Criteria
-
-1. **User Satisfaction**: Ensure the application is user-friendly and meets the user's needs.
-2. **Code Quality**: Maintain clean, readable, and well-documented code.
-3. **Project Structure**: Follow the MVC architecture with proper use of Provider for state management.
-4. **Presentation**: Provide clear and comprehensive documentation, including this README.
-
-### Contributing
-
+## Contributing
 Contributions are welcome! Please fork the repository and create a pull request with your changes. Make sure to follow the project's coding standards and include appropriate tests for new features or bug fixes.
 
 ## App Screenshots
