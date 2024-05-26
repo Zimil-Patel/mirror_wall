@@ -70,9 +70,11 @@ Contributions are welcome! Please fork the repository and create a pull request 
 
 https://github.com/Zimil-Patel/mirror_wall/assets/112332000/4214c71a-013c-4a44-a546-251af34da725
 
+
 - Part 2
 
 https://github.com/Zimil-Patel/mirror_wall/assets/112332000/38b6244e-e8c7-4ffd-8d93-5d87697f4e95
+
 
 
 
