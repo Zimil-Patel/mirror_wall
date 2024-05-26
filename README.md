@@ -46,8 +46,6 @@ Contributions are welcome! Please fork the repository and create a pull request 
 
 ## App Screenshots
 
-### Android (Material App View)
-
 <div align="left">
   
 <img src= "https://github.com/Zimil-Patel/mirror_wall/blob/main/snaps/img1-portrait.png" height = 510 width = 240> &nbsp;&nbsp;&nbsp;&nbsp; <img src= "https://github.com/Zimil-Patel/mirror_wall/blob/main/snaps/img2-portrait.png" height = 510 width = 240> &nbsp;&nbsp;&nbsp;&nbsp; <img src= "https://github.com/Zimil-Patel/mirror_wall/blob/main/snaps/img3-portrait.png" height = 510 width = 240>
