@@ -3,11 +3,11 @@ import 'package:mirror_wall/screens/provider/home_provider.dart';
 
 import '../../../utils/constants.dart';
 
-
 class AppBarActionButtons extends StatelessWidget {
   const AppBarActionButtons({
     super.key,
-    required this.providerFalse, required this.providerTrue,
+    required this.providerFalse,
+    required this.providerTrue,
   });
 
   final HomeProvider providerFalse, providerTrue;
@@ -16,11 +16,10 @@ class AppBarActionButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6.0),
           child: IconButton(
-            onPressed: providerTrue.isContainsInBookmark ? null : () => providerFalse.addToBookMarks(),
+            onPressed: providerTrue.isExistingToBookmark ? null : () => providerFalse.addToBookmark(),
             icon: Icon(
               Icons.bookmark_add_outlined,
               size: height * 0.034,

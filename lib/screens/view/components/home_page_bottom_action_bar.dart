@@ -29,17 +29,14 @@ class HomePageBottomActionBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-              onPressed:
-                  providerTrue.canGoBack ? () => providerFalse.goBack() : null,
+              onPressed: providerTrue.canGoBack ? () => providerFalse.goBack() : null,
               icon: Icon(
                 Icons.arrow_back_rounded,
                 size: height * 0.034,
               ),
             ),
             IconButton(
-              onPressed: providerTrue.canGoForward
-                  ? () => providerFalse.goForward()
-                  : null,
+              onPressed: providerTrue.canGoForward ? () => providerFalse.goForward() : null,
               icon: Icon(
                 Icons.arrow_forward_rounded,
                 size: height * 0.034,
@@ -53,8 +50,7 @@ class HomePageBottomActionBar extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed:
-                  providerTrue.canGoBack ? () => providerFalse.goHome() : null,
+              onPressed: providerTrue.canGoBackToHome ? () => providerFalse.goToHomePage() : null,
               icon: Icon(
                 Icons.home_outlined,
                 size: height * 0.034,
@@ -78,6 +74,3 @@ class HomePageBottomActionBar extends StatelessWidget {
     );
   }
 }
-
-
-

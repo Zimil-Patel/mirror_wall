@@ -40,8 +40,7 @@ class BookmarkHistoryListDialog extends StatelessWidget {
                   child: const Text(
                     'Done',
                     style: TextStyle(
-                        color: Colors.blueAccent,
-                        fontWeight: FontWeight.w500),
+                        color: Colors.blueAccent, fontWeight: FontWeight.w500),
                   ),
                   onPressed: () {
                     Navigator.pop(context);
@@ -73,10 +72,8 @@ class BookmarkHistoryListDialog extends StatelessWidget {
           Container(
             height: 35,
             width: double.infinity,
-            margin:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-            padding:
-            const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
             decoration: BoxDecoration(
               color: const Color(0xffe1e3e5),
               borderRadius: BorderRadiusDirectional.circular(10),
@@ -107,8 +104,7 @@ class BookmarkHistoryListDialog extends StatelessWidget {
 
           if (lable == 'History')
             Container(
-              margin: const EdgeInsets.symmetric(
-                  horizontal: 20, vertical: 10),
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               width: width,
               child: const Text(
                 'Your Google Account may have other form of browsing history at history.google.com',
@@ -134,13 +130,13 @@ class BookmarkHistoryListDialog extends StatelessWidget {
             ),
           ),
 
-          if(lable == 'Bookmarks' && homeProviderTrue.bookMarkList.isNotEmpty) Expanded(
+          if(lable == 'Bookmarks' && homeProviderTrue.bookmarkList.isNotEmpty) Expanded(
             child: SingleChildScrollView(
               child: Column(
                   children:[ CupertinoListSection.insetGrouped(
                     children: [
-                      ...List.generate(homeProviderTrue.bookMarkList.length, (index) =>
-                          BrowserDataListTile(data: homeProviderTrue.bookMarkList[index], providerFalse: homeProviderFalse,),),
+                      ...List.generate(homeProviderTrue.bookmarkList.length, (index) =>
+                          BrowserDataListTile(data: homeProviderTrue.bookmarkList[index], providerFalse: homeProviderFalse,),),
                     ],
                   ),]
               ),
@@ -154,7 +150,9 @@ class BookmarkHistoryListDialog extends StatelessWidget {
 
 class BrowserDataListTile extends StatelessWidget {
   const BrowserDataListTile({
-    super.key, required this.data, required this.providerFalse,
+    super.key,
+    required this.data,
+    required this.providerFalse,
   });
 
   final HomeProvider providerFalse;
@@ -165,7 +163,7 @@ class BrowserDataListTile extends StatelessWidget {
     return CupertinoListTile(
       onTap: () {
         Navigator.pop(context);
-        providerFalse.loadHistoryOrBookmark(data.url);
+        providerFalse.loadBookmarkAndHistory(data.url);
       },
       leading: const CircleAvatar(
         radius: 20,

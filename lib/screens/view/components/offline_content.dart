@@ -8,7 +8,10 @@ class OfflineContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Image.asset('assets/offline.jpg', fit: BoxFit.contain,),
+      child: Image.asset(
+        'assets/offline.jpg',
+        fit: BoxFit.contain,
+      ),
     );
   }
 }

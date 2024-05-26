@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../utils/constants.dart';
@@ -32,11 +31,12 @@ class HomePageAppBar extends StatelessWidget {
               ),
               child: Row(
                 children: [
-
                   // SEARCH
                   IconButton(
                     onPressed: () {
-                      providerFalse.search(providerFalse.txtSearch.text);
+                      if (providerTrue.txtSearch.text.isNotEmpty && providerTrue.txtSearch.text != ''){
+                        providerFalse.loadSearchKey();
+                      }
                     },
                     icon: Icon(
                       Icons.search_rounded,
@@ -53,10 +53,12 @@ class HomePageAppBar extends StatelessWidget {
           ),
 
           // STAR, DOWNLOAD
-          AppBarActionButtons(providerFalse: providerFalse, providerTrue: providerTrue,),
+          AppBarActionButtons(
+            providerFalse: providerFalse,
+            providerTrue: providerTrue,
+          ),
         ],
       ),
-
     );
   }
 }

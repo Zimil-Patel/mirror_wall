@@ -5,7 +5,6 @@ import '../../provider/home_provider.dart';
 import 'offline_content.dart';
 import 'online_content.dart';
 
-
 class WebViewBox extends StatelessWidget {
   const WebViewBox({
     super.key,
@@ -23,8 +22,10 @@ class WebViewBox extends StatelessWidget {
         stream: Connectivity().onConnectivityChanged,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data!.contains(ConnectivityResult.mobile) || snapshot.data!.contains(ConnectivityResult.wifi)) {
-              return WebViewContainer(providerTrue: providerTrue, providerFalse: providerFalse);
+            if (snapshot.data!.contains(ConnectivityResult.mobile) ||
+                snapshot.data!.contains(ConnectivityResult.wifi)) {
+              return OnlineContent(
+                  providerTrue: providerTrue, providerFalse: providerFalse);
             } else {
               return const OfflineContent();
             }
@@ -36,7 +37,3 @@ class WebViewBox extends StatelessWidget {
     );
   }
 }
-
-
-
-

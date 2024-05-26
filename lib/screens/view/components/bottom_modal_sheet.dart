@@ -45,9 +45,18 @@ class BottomModelSheet extends StatelessWidget {
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              IconWithLable(icon: Icons.star_border_rounded, lable: 'Bookmarks',),
-              IconWithLable(icon: Icons.history, lable: 'History',),
-              IconWithLable(icon: Icons.change_circle_outlined, lable: 'Change Search\nEngine',),
+              IconWithLable(
+                icon: Icons.star_border_rounded,
+                lable: 'Bookmarks',
+              ),
+              IconWithLable(
+                icon: Icons.history,
+                lable: 'History',
+              ),
+              IconWithLable(
+                icon: Icons.change_circle_outlined,
+                lable: 'Change Search\nEngine',
+              ),
             ],
           ),
         ],

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:mirror_wall/screens/view/components/web_view_box.dart';
 import 'package:provider/provider.dart';

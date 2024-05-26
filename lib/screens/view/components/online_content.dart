@@ -1,62 +1,21 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:mirror_wall/screens/view/components/progress_bar.dart';
 import '../../provider/home_provider.dart';
-
-class WebViewContainer extends StatefulWidget {
-  final HomeProvider providerTrue;
-  final HomeProvider providerFalse;
-
-  const WebViewContainer({
-    super.key,
-    required this.providerTrue,
-    required this.providerFalse,
-  });
-
-  @override
-  WebViewContainerState createState() => WebViewContainerState();
-}
-
-class WebViewContainerState extends State<WebViewContainer> {
-  late PullToRefreshController pullToRefreshController;
-
-  @override
-  void initState() {
-    super.initState();
-    pullToRefreshController = PullToRefreshController(
-      onRefresh: () {
-        widget.providerTrue.webController.reload();
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    pullToRefreshController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return OnlineContent(
-      providerTrue: widget.providerTrue,
-      providerFalse: widget.providerFalse,
-      pullToRefreshController: pullToRefreshController,
-    );
-  }
-}
-
 
 class OnlineContent extends StatelessWidget {
   const OnlineContent({
     super.key,
     required this.providerTrue,
     required this.providerFalse,
-    required this.pullToRefreshController,
+
   });
 
   final HomeProvider providerTrue;
   final HomeProvider providerFalse;
-  final PullToRefreshController pullToRefreshController;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,44 +23,61 @@ class OnlineContent extends StatelessWidget {
       children: [
         // IN APP WEB VIEW
         InAppWebView(
-          key: providerTrue.webKey,
-          // INITIAL URL
+
+          // PASS INITIAL URL HERE
           initialUrlRequest: URLRequest(
-            url: WebUri('https://www.${providerTrue.selectedEngine}.com/'),
+            url: WebUri('https://www.google.com/'),
           ),
-          // ON CREATED
+
+
+          // ON WEB VIEW CRATED
           onWebViewCreated: (controller) {
-            providerTrue.webController = controller;
+            providerFalse.setWebController(controller);
           },
-          // PROGRESS TRACK
-          onProgressChanged: (controller, progress) =>
-              providerFalse.updateProgressValue(progress),
-          // ON LOAD STOP
-          onLoadStop: (controller, url) {
-            providerFalse.updateState();
-            pullToRefreshController.endRefreshing();
+
+          // UPDATE PROGRESS VALUE HERE
+          onProgressChanged: (controller, progress) {
+            providerFalse.updateProgressValue(progress);
           },
-          // URL LOADING OVERRIDE
-          shouldOverrideUrlLoading: (controller, navigationAction) async {
-            final uri = navigationAction.request.url;
-            if (uri != null && uri.toString() != 'https://www.${providerTrue.selectedEngine}.com/') {
-              providerFalse.currentUrl = uri.toString();
-            }
-            return NavigationActionPolicy.ALLOW;
+
+
+          // ACTIONS AFTER ON LOAD
+          onLoadStop: (controller, url) async {
+            await providerFalse.endRefreshing();
+
           },
-          pullToRefreshController: pullToRefreshController, // Add the PullToRefreshController here
+
+
+          // ACTION ON TITLE CHANGED
+          onTitleChanged: (controller, title) async {
+
+
+            // FETCH TITLE AND URL
+            await providerFalse.getTitleAndUrl();
+
+            // ADD TO HISTORY
+            providerFalse.addToHistoryList();
+
+            // CHECK CAN NAVIGATE
+            await providerFalse.checkCanGoBackForwardHome();
+
+            // CHECK IF EXISTING IN BOOKMARK OR NOT
+            providerFalse.checkIfExistInBookMark();
+          },
+
+
+          // PULL TO REFRESH CONTROLLER
+          pullToRefreshController: providerTrue.pullToRefreshController,
+
         ),
+
+
         // WEBSITE LOADING PROGRESS INDICATOR
         if (providerTrue.progressValue < 1)
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: LinearProgressIndicator(
-              value: providerTrue.progressValue,
-              minHeight: 2,
-              color: Colors.blueAccent,
-            ),
-          ),
+          ProgressBar(providerTrue: providerTrue),
       ],
     );
   }
 }
+
+

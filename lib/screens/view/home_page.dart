@@ -12,12 +12,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
 
-    HomeProvider homeProviderTrue = Provider.of<HomeProvider>(context, listen: true);
-    HomeProvider homeProviderFalse = Provider.of<HomeProvider>(context, listen: false);
+    HomeProvider homeProviderTrue =
+        Provider.of<HomeProvider>(context, listen: true);
+    HomeProvider homeProviderFalse =
+        Provider.of<HomeProvider>(context, listen: false);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -30,12 +31,12 @@ class HomePage extends StatelessWidget {
         ),
       ),
 
-
       // BODY
       body: Column(
         children: [
           // WEB VIEW BOX
-          WebViewBox(providerTrue: homeProviderTrue, providerFalse: homeProviderFalse),
+          WebViewBox(
+              providerTrue: homeProviderTrue, providerFalse: homeProviderFalse),
 
           // BOTTOM ACTION BAR
           HomePageBottomActionBar(

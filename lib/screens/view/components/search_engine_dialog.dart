@@ -7,12 +7,12 @@ import '../../../utils/constants.dart';
 class CustomDialog extends StatelessWidget {
   const CustomDialog({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-
-    HomeProvider providerFalse = Provider.of<HomeProvider>(context, listen: false);
-    HomeProvider providerTrue = Provider.of<HomeProvider>(context, listen: true);
+    HomeProvider providerFalse =
+        Provider.of<HomeProvider>(context, listen: false);
+    HomeProvider providerTrue =
+        Provider.of<HomeProvider>(context, listen: true);
 
     return Dialog(
       child: Container(
@@ -27,7 +27,7 @@ class CustomDialog extends StatelessWidget {
               children: [
                 Padding(
                   padding:
-                  const EdgeInsets.only(left: 20.0, top: 16, bottom: 16),
+                      const EdgeInsets.only(left: 20.0, top: 16, bottom: 16),
                   child: Text(
                     'Change Search Engine',
                     style: TextStyle(
@@ -46,46 +46,39 @@ class CustomDialog extends StatelessWidget {
                   RadioListTile<String>(
                     title: const Text('Google'),
                     value: 'google',
-                    groupValue: providerFalse.selectedEngine,
+                    groupValue: providerTrue.searchEngineName,
                     onChanged: (value) {
                       Navigator.pop(context);
-                      providerFalse.setSearchEngine(
-                          context: context, value: value!);
+                      providerFalse.loadSearchEngine(value!);
                     },
                   ),
                   RadioListTile<String>(
                     title: const Text('Yahoo'),
                     value: 'yahoo',
-                    groupValue: providerFalse.selectedEngine,
+                    groupValue: providerTrue.searchEngineName,
                     onChanged: (value) {
                       Navigator.pop(context);
-                      providerFalse.setSearchEngine(
-                          context: context, value: value!);
+                      providerFalse.loadSearchEngine(value!);
                     },
                   ),
                   RadioListTile<String>(
                     title: const Text('Bing'),
                     value: 'bing',
-                    groupValue: providerFalse.selectedEngine,
+                    groupValue: providerTrue.searchEngineName,
                     onChanged: (value) {
                       Navigator.pop(context);
-
-                      providerFalse.setSearchEngine(
-                          context: context, value: value!);
+                      providerFalse.loadSearchEngine(value!);
                     },
                   ),
                   RadioListTile<String>(
                     title: const Text('Duck Duck Go'),
                     value: 'duckduckgo',
-                    groupValue: providerFalse.selectedEngine,
+                    groupValue: providerTrue.searchEngineName,
                     onChanged: (value) {
                       Navigator.pop(context);
-
-                      providerFalse.setSearchEngine(
-                          context: context, value: value!);
+                      providerFalse.loadSearchEngine(value!);
                     },
                   ),
-
                 ],
               ),
             ),

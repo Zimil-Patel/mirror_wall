@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mirror_wall/screens/provider/home_provider.dart';
 
-
 class AppBarSearchTextField extends StatelessWidget {
   const AppBarSearchTextField({
     super.key,
@@ -18,12 +17,14 @@ class AppBarSearchTextField extends StatelessWidget {
       child: SizedBox(
         height: 46,
         child: TextField(
+          controller: providerTrue.txtSearch,
           onSubmitted: (value) {
-            providerFalse.search(value);
+            if(value.isNotEmpty && value != ''){
+              providerFalse.loadSearchKey();
+            }
           },
           textInputAction: TextInputAction.search,
           cursorColor: Colors.black54,
-          controller: providerTrue.txtSearch,
           onTapOutside: (event) =>
               FocusManager.instance.primaryFocus!.unfocus(),
           decoration: InputDecoration(
